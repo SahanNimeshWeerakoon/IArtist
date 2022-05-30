@@ -17,7 +17,6 @@ router.post("/",[auth,[check("text","Text is required").not().isEmpty()]],async(
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        
         const user=await User.findById(req.user.id).select("-password");
         if(!user){
             res.send("No User");        }
@@ -28,8 +27,6 @@ router.post("/",[auth,[check("text","Text is required").not().isEmpty()]],async(
         console.log(err.message);
         res.status(500).send("Server error");
     }
-    
-
 });
 
 //@route GET api/post/
