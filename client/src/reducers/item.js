@@ -1,12 +1,15 @@
 import{
     GET_ITEMS,
     ITEM_ERROR,
-    DELETE_ITEM, 
-    ADD_ITEM, 
+    DELETE_ITEM,
+    ADD_ITEM,
+    SAVE_VIDEO,
     GET_ITEM
 } from '../actions/types';
 
 const initialState={
+    video: "",
+    videoSaving: false,
     items: [],
     item: null,
     loading: true,
@@ -45,6 +48,12 @@ export default function(state= initialState, action){
                 ...state,
                 error: payload,
                 loading: false
+            }
+        case SAVE_VIDEO:
+            return {
+                ...state,
+                video: payload.videoLink,
+                videoSaving: payload.videoSaving
             }
         default:
             return state;
