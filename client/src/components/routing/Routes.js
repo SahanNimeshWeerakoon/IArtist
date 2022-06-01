@@ -15,6 +15,8 @@ import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
 import CreateItem from '../product/Create';
+import ViewItems from '../product/View';
+import ViewCourse from '../product/ViewCourse';
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -38,6 +40,8 @@ const Routes = () => {
           <PrivateRoute exact path="/posts" component={Posts}/>
           <PrivateRoute exact path="/posts/:id" component={Post}/>
           <PrivateRoute exact path="/create-item" component={CreateItem}/>
+          <PrivateRoute exact path="/view-items" component={ViewItems}/>
+          <PrivateRoute exact path="/items/:id" component={ViewCourse}/>
           <Route component={NotFound}/>
 
 

@@ -3,15 +3,15 @@ import {setAlert} from './alert';
 import {GET_ITEMS, POST_ERROR, DELETE_ITEM, ADD_ITEM, GET_ITEM, SAVE_VIDEO} from './types';
 
 //get items
-export const getPosts=()=> async dispatch=>{
+export const getItems=()=> async dispatch=>{
     try {
         const res = await axios.get('/api/items');
-
         dispatch({
             type: GET_ITEMS,
             payload: res.data
         })
     } catch (err) {
+        console.log(err);
         dispatch({
             type: POST_ERROR,
             payload: {msg: err.response.statusText, status: err.response.status}
@@ -22,13 +22,19 @@ export const getPosts=()=> async dispatch=>{
 //Remove Item
 export const deleteItem=id=> async dispatch=>{
     try {
-        await axios.delete(`/api/items/${id}`);
+        const config={
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        await axios.delete(`/api/items/${id}`, config);
 
         dispatch({
             type: DELETE_ITEM,
             payload: id
         })
-        dispatch(setAlert('Post Revoved', 'success'));
+        // dispatch(setAlert('Post Revoved', 'success'));
     } catch (err) {
         dispatch({
             type: POST_ERROR,
@@ -63,7 +69,7 @@ export const addItem = formData=> async dispatch=>{
 //get item
 export const getItem = id => async dispatch=>{
     try {
-        const res = await axios.get(`/api/posts/${id}`);
+        const res = await axios.get(`/api/items/${id}`);
 
         dispatch({
             type: GET_ITEM,
@@ -72,7 +78,7 @@ export const getItem = id => async dispatch=>{
     } catch (err) {
         dispatch({
             type: POST_ERROR,
-            payload: {msg: err.response.statusText, status: err.response.status}
+            payload: {msg: err, status: false}
         })
     }
 }
@@ -89,7 +95,7 @@ export const saveMedia = (formData, config) => async dispatch=>{
     } catch (err) {
         dispatch({
             type: POST_ERROR,
-            payload: {msg: err.response.statusText, status: err.response.status}
+            payload: {msg: err, status: false}
         })
     }
 }
