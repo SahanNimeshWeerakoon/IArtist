@@ -10,8 +10,9 @@ connectDB();
 // Init Middleware
 app.use(express.json({extended:false}));
 
+/* on production process.env.port auto enawa. production daane nathuwa, localhost nan run wenne, 5000 pennana. 
+nattan production env deela thiyena prot eka pawichchi karanna*/
 const PORT = process.env.PORT || 5000;
-
 
 //Define Routes
 //the code below mean url "/api/users" will equal url "/" in routes/api/users file
@@ -20,6 +21,7 @@ app.use('/api/users', require("./routes/api/users"));
 app.use('/api/profile', require("./routes/api/profile"));
 app.use('/api/auth', require("./routes/api/auth"));
 app.use('/api/posts', require("./routes/api/posts"));
+app.use('/api/items', require("./routes/api/items"));
 app.use('/api/video', require("./routes/api/video"));
 
 // Serve static asset in production

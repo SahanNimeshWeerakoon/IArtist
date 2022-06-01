@@ -53,7 +53,7 @@ export default function(state= initialState, action){
             return {
                 ...state,
                 video: payload.videoLink,
-                videoSaving: payload.videoSaving
+                videoSaving: false
             }
         default:
             return state;

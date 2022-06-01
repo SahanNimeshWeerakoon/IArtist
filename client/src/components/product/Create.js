@@ -4,15 +4,11 @@ import Dropzone from 'react-dropzone'
 import {connect } from 'react-redux'
 import {addItem, saveMedia} from '../../actions/item'
 
-const CreateItem = ({addItem, item, saveMedia}) => {
+const CreateItem = ({addItem, item, user, saveMedia}) => {
 
-    const [formData, setFormData]=useState({
-        name:''
-    });
+    const [formData, setFormData]=useState({ name:'' });
 
-    const {
-        name
-      } = formData;
+    const { name } = formData;
 
     const onChange=(e)=>{setFormData({...formData, [e.target.name]: e.target.value})}
     const handleDrop = file => {
@@ -25,6 +21,14 @@ const CreateItem = ({addItem, item, saveMedia}) => {
         formData.append("file", file[0]);
         saveMedia(formData, config);
     }
+    const handeSubmit = () => {
+        let newItem = {
+            user,
+            name,
+            video: item.video
+        }
+        addItem(newItem);
+    }
     
     return (
         <div class="post-form">
@@ -33,7 +37,7 @@ const CreateItem = ({addItem, item, saveMedia}) => {
             </div>
             <form class="form my-1" onSubmit={e=>{
                 e.preventDefault();
-                addItem();
+                handeSubmit();
             }}>
                 <div className='form-group'>
                     <input type="text" className='form-control' name='name' value={name} onChange={e=>onChange(e)}/>
@@ -61,7 +65,8 @@ CreateItem.propTypes = {
 }
 
 const mapStateToProps= state=>({
-    item: state.item
+    item: state.item,
+    user: state.auth.user
 })
 
 export default connect(mapStateToProps, {addItem, saveMedia})(CreateItem)

@@ -11,7 +11,7 @@ const User= require("../../models/User");
 //@route POST api/post
 //@desc Add a post
 //@access Private
-router.post("/",[auth,[check("text","Text is required").not().isEmpty()]],async(req,res)=>{
+router.post("/",[auth, [check("text","Text is required").not().isEmpty()]],async(req,res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({ errors: errors.array() });
@@ -30,7 +30,7 @@ router.post("/",[auth,[check("text","Text is required").not().isEmpty()]],async(
 });
 
 //@route GET api/post/
-//@desc Get all Posts
+// @desc Get all Posts
 //@access Private
 router.get("/",auth,async(req,res)=>{
     try {
